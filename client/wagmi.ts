@@ -1,4 +1,5 @@
 import { getDefaultConfig, Chain } from '@rainbow-me/rainbowkit';
+import { http, useClient, useConnectorClient } from 'wagmi'; // useClient & useConnectorClient are the PublicClient and walletCLient equivalent in wagmi
 import {
   arbitrum,
   base,
@@ -31,14 +32,11 @@ export const config = getDefaultConfig({
   appName: 'aa-chat',
   projectId,
   chains: [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    base,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [sepolia] : []),
-    goerli,
     anvil,
   ],
+  transports: {
+    [anvil.id]: http("http://127.0.0.1:8545"),
+  },
   ssr: true,
+  syncConnectedChain: true,
 });
