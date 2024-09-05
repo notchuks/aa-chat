@@ -1,5 +1,5 @@
 import { createPublicClient, createWalletClient, custom, defineChain, EIP1193Provider, http } from "viem";
-import { goerli, sepolia } from "viem/chains";
+import { goerli, holesky, sepolia } from "viem/chains";
 
 export const anvil = defineChain({
     id: 31_337,
@@ -17,8 +17,8 @@ export const anvil = defineChain({
 })
 
 export const publicClient = createPublicClient({
-    chain: anvil,
-    transport: http("http://localhost:8545"), // sepolia alchemy rpc url(incomplete) - https://eth-sepolia.g.alchemy.com/v2/8f3L7dOU0
+    chain: sepolia,
+    transport: http("https://eth-sepolia.g.alchemy.com/v2/8f3L7dOU056NQW42iuO2KyK0yELh7s0q"), // sepolia alchemy rpc url(incomplete) - https://eth-sepolia.g.alchemy.com/v2/8f3L7dOU0
 });
 
 // approved workaround for window object undefined when page loads initially
@@ -27,6 +27,6 @@ const provider = typeof window !== 'undefined' ? window.ethereum! : noopProvider
 
 // Metamask
 export const walletClient = createWalletClient({
-    chain: anvil,
+    chain: sepolia,
     transport: custom(provider)
 })

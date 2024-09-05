@@ -8,6 +8,7 @@ import {
   polygon,
   sepolia,
   goerli,
+  holesky
 } from 'wagmi/chains';
 
 // Your WalletConnect Cloud project ID
@@ -32,10 +33,10 @@ export const config = getDefaultConfig({
   appName: 'aa-chat',
   projectId,
   chains: [
-    anvil,
+    sepolia,
   ],
   transports: {
-    [anvil.id]: http("http://127.0.0.1:8545"),
+    [sepolia.id]: http("https://eth-sepolia.g.alchemy.com/v2/8f3L7dOU056NQW42iuO2KyK0yELh7s0q"),
   },
   ssr: true,
   syncConnectedChain: true,

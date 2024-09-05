@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSimulateContract, useWriteContract } from "wagmi";
+import { useSimulateContract, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 
 import { chatABI } from "@/utils/chatABI";
 
@@ -8,6 +8,7 @@ export default function SendMessage() {
     const { writeContract } = useWriteContract();
 
     const ca = `0x${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}` as const || `0x${""}` as const;
+    let txhash;
 
     // Using Wagmi to send message
     const { data } = useSimulateContract({
@@ -20,9 +21,14 @@ export default function SendMessage() {
     function sendMessage() {
         if (message && message.length > 0) {
           console.log("Writing message to contract...")
-          writeContract(data!.request)
+          txhash = writeContract(data!.request);
+          console.log("Tx hash: ", txhash);
         }
-      }
+    }
+
+    const { data: txdata, isLoading, isSuccess } = useWaitForTransactionReceipt({
+      hash: txhash,
+  })
 
     return (
       <div className="flex w-full p-5 border-t-2">
