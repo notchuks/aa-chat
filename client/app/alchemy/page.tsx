@@ -4,7 +4,7 @@ import { createCallData, getFunctionSelector } from "abstractionkit";
 import { useEffect, useState } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useSimulateContract } from "wagmi";
-import { AlchemySmartAccountClient, createAlchemySmartAccountClient, sepolia } from "@account-kit/infra";
+import { createAlchemySmartAccountClient, sepolia } from "@account-kit/infra";
 import { createLightAccount } from "@account-kit/smart-contracts";
 import { WalletClientSigner } from "@aa-sdk/core";
 import { http } from "viem";
@@ -19,7 +19,7 @@ export default function Alchemy() {
   const [message, setMessage] = useState<string>("");
   const [ connectedAddress, setConnectedAddress ] = useState<`0x${string}` | undefined>("0x");
   const [ useSmartWallet, setUseSmartWallet ] = useState<boolean>();
-  const [ client, setClient ] = useState<unknown>();
+  const [ client, setClient ] = useState<any>();
   const { address, isConnected } = useAccount();
 
   const ca = `0x${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}` as const || `0x${""}` as const;
